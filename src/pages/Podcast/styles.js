@@ -56,6 +56,15 @@ export const Cover = styled.Image`
   border-radius: 8px;
 `;
 
+export const BackButton = styled.TouchableOpacity.attrs({
+  hitSlop: { top: 5, left: 5, right: 5, bottom: 5, 
+  },
+})`
+  position: absolute;
+  left: 30px;
+  top: ${getStatusBarHeight() + 30}px;
+`;
+
 export const Episode = styled.TouchableOpacity`
   margin-top: 20px;
   padding: 0 20px;
