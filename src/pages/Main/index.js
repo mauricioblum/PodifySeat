@@ -1,59 +1,244 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {
-  Text, Image, StyleSheet, Dimensions, ImageBackground, StatusBar,
-} from 'react-native';
+  Container, PodcastList, PageTitle, Podcast, Cover, Info, Title, Count,
+} from './styles';
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    paddingHorizontal: 20,
+const podcasts = [
+  {
+    id: 1,
+    title: 'RocketCast',
+    cover: 'https://s3-sa-east-1.amazonaws.com/gonative/cover1.png',
+    tracks: [
+      {
+        id: '0',
+        title: 'Papercut',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/1.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover1.png',
+      },
+      {
+        id: '1',
+        title: 'One Step Closer',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/2.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover2.png',
+      },
+      {
+        id: '2',
+        title: 'With You',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/3.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover3.png',
+      },
+      {
+        id: '3',
+        title: 'Points of Authority',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/4.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover4.png',
+      },
+      {
+        id: '4',
+        title: 'Crawling',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/5.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover5.png',
+      },
+    ],
   },
-  fileName: {
-    fontWeight: 'bold',
-    marginTop: 5,
+  {
+    id: 2,
+    title: 'React Native Cast',
+    cover: 'https://s3-sa-east-1.amazonaws.com/gonative/cover2.png',
+    tracks: [
+      {
+        id: '5',
+        title: 'Papercut',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/1.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover1.png',
+      },
+      {
+        id: '6',
+        title: 'One Step Closer',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/2.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover2.png',
+      },
+      {
+        id: '7',
+        title: 'With You',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/3.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover3.png',
+      },
+      {
+        id: '8',
+        title: 'Points of Authority',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/4.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover4.png',
+      },
+      {
+        id: '9',
+        title: 'Crawling',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/5.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover5.png',
+      },
+    ],
   },
-  instructions: {
-    color: '#DDD',
-    fontSize: 14,
-    marginTop: 20,
-    textAlign: 'center',
+  {
+    id: 3,
+    title: 'PodNode',
+    cover: 'https://s3-sa-east-1.amazonaws.com/gonative/cover3.png',
+    tracks: [
+      {
+        id: '10',
+        title: 'Papercut',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/1.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover1.png',
+      },
+      {
+        id: '11',
+        title: 'One Step Closer',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/2.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover2.png',
+      },
+      {
+        id: '12',
+        title: 'With You',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/3.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover3.png',
+      },
+      {
+        id: '13',
+        title: 'Points of Authority',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/4.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover4.png',
+      },
+      {
+        id: '14',
+        title: 'Crawling',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/5.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover5.png',
+      },
+    ],
   },
-  logo: {
-    height: Dimensions.get('window').height * 0.11,
-    marginVertical: Dimensions.get('window').height * 0.11,
-    width: Dimensions.get('window').height * 0.11 * (1950 / 662),
+  {
+    id: 4,
+    title: 'JSCast',
+    cover: 'https://s3-sa-east-1.amazonaws.com/gonative/cover4.png',
+    tracks: [
+      {
+        id: '15',
+        title: 'Papercut',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/1.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover1.png',
+      },
+      {
+        id: '16',
+        title: 'One Step Closer',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/2.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover2.png',
+      },
+      {
+        id: '17',
+        title: 'With You',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/3.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover3.png',
+      },
+      {
+        id: '18',
+        title: 'Points of Authority',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/4.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover4.png',
+      },
+      {
+        id: '19',
+        title: 'Crawling',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/5.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover5.png',
+      },
+    ],
   },
-  welcome: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  {
+    id: 5,
+    title: 'Rádio ReactJS',
+    cover: 'https://s3-sa-east-1.amazonaws.com/gonative/cover5.png',
+    tracks: [
+      {
+        id: '20',
+        title: 'Papercut',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/1.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover1.png',
+      },
+      {
+        id: '21',
+        title: 'One Step Closer',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/2.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover2.png',
+      },
+      {
+        id: '22',
+        title: 'With You',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/3.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover3.png',
+      },
+      {
+        id: '23',
+        title: 'Points of Authority',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/4.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover4.png',
+      },
+      {
+        id: '24',
+        title: 'Crawling',
+        artist: 'Linkin Park',
+        url: 'https://s3-sa-east-1.amazonaws.com/gonative/5.mp3',
+        artwork: 'https://s3-sa-east-1.amazonaws.com/gonative/cover5.png',
+      },
+    ],
   },
-});
+];
 
-const Main = () => (
-  <ImageBackground
-    source={{
-      uri: 'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/background.png',
-    }}
-    style={styles.container}
-    resizeMode="cover"
-  >
-    <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
-    <Image
-      source={{
-        uri: 'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-      }}
-      style={styles.logo}
-      resizeMode="contain"
-    />
-    <Text style={styles.welcome}>Bem-vindo ao Template Avançado!</Text>
-    <Text style={styles.instructions}>Essa é a tela principal da sua aplicação =)</Text>
-    <Text style={styles.instructions}>Você pode editar a tela no arquivo:</Text>
-    <Text style={[styles.instructions, styles.fileName]}>src/pages/Main/index.js</Text>
-  </ImageBackground>
-);
+export default class Main extends Component {
+  componentDidMount() {}
 
-export default Main;
+  render() {
+    return (
+      <Container>
+        <PodcastList
+          ListHeaderComponent={() => <PageTitle>Podcasts</PageTitle>}
+          data={podcasts}
+          keyExtractor={podcast => String(podcast.id)}
+          renderItem={({ item: podcast }) => (
+            <Podcast onPress={() => {}}>
+              <Cover source={{ uri: podcast.cover }} />
+              <Info>
+                <Title>{podcast.title}</Title>
+                <Count>{`${podcast.tracks.length} episodes`}</Count>
+              </Info>
+              
+            </Podcast>
+          )}
+        />
+      </Container>
+    );
+  }
+}
