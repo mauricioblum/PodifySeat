@@ -6,6 +6,7 @@ if (__DEV__) {
   const tron = Reactotron.configure()
     .use(reactotronRedux())
     .use(sagaPlugin())
+    .useReactNative()
     .connect();
 
   tron.clear();
